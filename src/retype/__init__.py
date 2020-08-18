@@ -368,21 +368,24 @@ def _r_annassign(annassign, body, flags):
             maybe_expr.children = [expr[0], annassign_node]
 
             break
-    else:
-        # If the variable was used in some `if` statement, etc.; let's define
-        # its type from the stub on the top level of the function.
-        offset, prefix = get_offset_and_prefix(body, skip_assignments=True)
-        body.children.insert(
-            offset,
-            Node(
-                syms.simple_stmt,
-                [
-                    Node(syms.expr_stmt, [Leaf(token.NAME, name), annassign_node]),
-                    new(_newline),
-                ],
-                prefix=prefix.lstrip("\n"),
-            ),
-        )
+
+    # remove extra annotations, such as modules, argv, etc..
+
+    # else:
+    #     # If the variable was used in some `if` statement, etc.; let's define
+    #     # its type from the stub on the top level of the function.
+    #     offset, prefix = get_offset_and_prefix(body, skip_assignments=True)
+    #     body.children.insert(
+    #         offset,
+    #         Node(
+    #             syms.simple_stmt,
+    #             [
+    #                 Node(syms.expr_stmt, [Leaf(token.NAME, name), annassign_node]),
+    #                 new(_newline),
+    #             ],
+    #             prefix=prefix.lstrip("\n"),
+    #         ),
+    #     )
 
     return []
 
