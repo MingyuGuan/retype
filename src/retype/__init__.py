@@ -287,7 +287,8 @@ def _r_functiondef(fun, node, flags):
                 )
             break
     else:
-        raise ValueError(f"Function {name.value!r} not found in source.")
+        pass
+        # raise ValueError(f"Function {name.value!r} not found in source.")
 
     return []
 
